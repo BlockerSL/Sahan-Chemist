@@ -1,614 +1,105 @@
 <?php
-$_GET["sahand"];
+	if (isset($_POST["submit"])) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$message = $_POST['message'];
+		$human = intval($_POST['human']);
+		$from = 'Demo Contact Form'; 
+		$to = 'example@domain.com'; 
+		$subject = 'Message from Contact Demo ';
+		
+		$body ="From: $name\n E-Mail: $email\n Message:\n $message";
 
-if($_GET["sahand"]==="I")
-{
-	echo'<!DOCTYPE html>
+		// Check if name has been entered
+		if (!$_POST['name']) {
+			$errName = 'Please enter your name';
+		}
+		
+		// Check if email has been entered and is valid
+		if (!$_POST['email'] || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+			$errEmail = 'Please enter a valid email address';
+		}
+		
+		//Check if message has been entered
+		if (!$_POST['message']) {
+			$errMessage = 'Please enter your message';
+		}
+		//Check if simple anti-bot test is correct
+		if ($human !== 5) {
+			$errHuman = 'Your anti-spam is incorrect';
+		}
 
-<html>
-<head>
+// If there are no errors, send the email
+if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
+	if (mail ($to, $subject, $body, $from)) {
+		$result='<div class="alert alert-success">Thank You! I will be in touch</div>';
+	} else {
+		$result='<div class="alert alert-danger">Sorry there was an error sending your message. Please try again later.</div>';
+	}
+}
+	}
+?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">ێۆدید</h1>
-
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td>ێۆدید</td> 
-        <td>Io<sup>-</sup> , Io<sub>2</sub><sup>-</sup> , Io<sub>3</sub><sup>-</sup> , Io<sub>4</sub><sup>-</sup></td> 
-      </tr> 
-<tr>
-
-<td>Io<sup>-</sup></td>
-<td> ژێر ێۆدیت </td>
-
-</tr>
-
-
-<tr>
-<td>Io<sub>2</sub><sup>-</sup></td>
-<td>ێۆدیت</td>
-</tr>
-   <tr>
-<td>Io<sub>3</sub><sup>-</sup></td>
-<td>ێۆدات</td>
-</tr>
-<tr>
-<td>Io<sub>4</sub><sup>-</sup></td>
-<td>پێر & ژوور  ێۆدات</td>
-</tr>
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bootstrap contact form with PHP example by BootstrapBay.com.">
+    <meta name="author" content="BootstrapBay.com">
+    <title>Bootstrap Contact Form With PHP Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<div class="row">
+  			<div class="col-md-6 col-md-offset-3">
+  				<h1 class="page-header text-center">Contact Form Example</h1>
+				<form class="form-horizontal" role="form" method="post" action="index.php">
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" value="<?php echo htmlspecialchars($_POST['name']); ?>">
+							<?php echo "<p class='text-danger'>$errName</p>";?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email" class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="<?php echo htmlspecialchars($_POST['email']); ?>">
+							<?php echo "<p class='text-danger'>$errEmail</p>";?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="message" class="col-sm-2 control-label">Message</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" name="message"><?php echo htmlspecialchars($_POST['message']);?></textarea>
+							<?php echo "<p class='text-danger'>$errMessage</p>";?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="human" name="human" placeholder="Your Answer">
+							<?php echo "<p class='text-danger'>$errHuman</p>";?>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2">
+							<input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2">
+							<?php echo $result; ?>	
+						</div>
+					</div>
+				</form> 
+			</div>
+		</div>
+	</div>   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  </body>
 </html>
-';
-}
- if($_GET["sahand"]==="Cl")
-{
-	echo '<!DOCTYPE html>
-
-<html>
-<head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">کلۆرید</h1>
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td>کلۆرید</td> 
-        <td>Clo<sup>-</sup> , Clo<sub>2</sub><sup>-</sup> , Clo<sub>3</sub><sup>-</sup> , Clo<sub>4</sub><sup>-</sup></td> 
-      </tr> 
-<tr>
-
-<td>Clo<sup>-</sup></td>
-<td> ژێر کلۆریت </td>
-
-</tr>
-
-
-<tr>
-<td>Clo<sub>2</sub><sup>-</sup></td>
-<td>کلۆریت</td>
-</tr>
-   <tr>
-<td>Clo<sub>3</sub><sup>-</sup></td>
-<td>کلۆرات</td>
-</tr>
-<tr>
-<td>Clo<sub>4</sub><sup>-</sup></td>
-<td>پێر & ژوور کلۆرات</td>
-</tr>
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
-</html>
-';
-}
-
-if($_GET["sahand"]==="Br")
-{
-	echo '<!DOCTYPE html>
-
-<html>
-<head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">بڕۆمید</h1>
-
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td>بڕۆمید</td> 
-        <td>Bro<sup>-</sup> , Bro<sub>2</sub><sup>-</sup> , Bro<sub>3</sub><sup>-</sup> , Bro<sub>4</sub><sup>-</sup></td> 
-      </tr> 
-<tr>
-
-<td>Bro<sup>-</sup></td>
-<td> ژێر بڕۆمیت </td>
-
-</tr>
-
-
-<tr>
-<td>Bro<sub>2</sub><sup>-</sup></td>
-<td>بڕۆمیت</td>
-</tr>
-   <tr>
-<td>Bro<sub>3</sub><sup>-</sup></td>
-<td>برۆمات</td>
-</tr>
-<tr>
-<td>Bro<sub>4</sub><sup>-</sup></td>
-<td> پێر & ژوور بڕۆمات</td>
-</tr>
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
-</html>
-';
-}
-
-if($_GET["sahand"]==="F")
-{
-
-echo '<!DOCTYPE html>
-
-<html>
-<head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">فلۆرید</h1>
-
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td>فلۆرید</td> 
-        <td>F<sup>-</sup> 
-      </tr> 
-<tr>
-
-<td>F<sup>-</sup></td>
-<td> فلۆرید </td>
-
-</tr>
-
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
-</html>
-';
-
-}
-
-if($_GET["sahand"]==="Cn")
-{
-
-echo '<!DOCTYPE html>
-
-<html>
-<head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">سیانید</h1>
-
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td>سیانید</td> 
-        <td>CN<sup>-</sup> 
-      </tr> 
-<tr>
-
-<td>CN<sup>-</sup></td>
-<td> سیانید </td>
-
-</tr>
-
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
-</html>
-';
-
-}
-
-
-if($_GET["sahand"]==="Oh")
-{
-
-echo '<!DOCTYPE html>
-
-<html>
-<head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">هایدرۆکسید</h1>
-
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td> هایدرۆکسید </td> 
-        <td>OH<sup>-</sup> 
-      </tr> 
-<tr>
-
-<td>OH<sup>-</sup></td>
-<td> هایدرۆکسید </td>
-
-</tr>
-
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
-</html>
-';
-
-}
-
-
-if($_GET["sahand"]==="N")
-{
-	
-	echo '<!DOCTYPE html>
-
-<html>
-<head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="utf-8">
-    <title>Welcomr</title>
-<h1 align="center">نیترید</h1>
-
-<br/>
-</head>
-<body class="p-3 mb-2 bg-dark text-white" >
-
-<center>
-
-  <style> 
-        table, th, td 
-        { 
-            border-collapse:collapse; 
-            border:1px solid black; 
-        } 
-        th, td 
-        { 
-            padding:5px; 
-        } 
-    </style> 
-    </head> 
- 
-    <body> 
- 
-    <table> 
-
-      <tr> 
-        <th style="background-color: #778899;">ناوی شێوگ</th> 
-        <th style="background-color: #778899;"> جۆرەکانی</th> 
-      </tr> 
-      <tr> 
-     
-        <td> نیتریت </td> 
-        <td>NO<sub>2</sub><sup>-</sup> 
-      </tr> 
-<tr>
-
-<td>NO<sub>2</sub><sup>-</sup> 
-
-<td> نیتریت </td>
-
-</tr>
-<tr>
-
-<td>NO<sub>3</sub><sup>-</sup> 
-
-<td> نیترات</td>
-
-
-
-
-
-
-</tr>
-
-
-
-    </table> 
-</center>
-
-</body>
-<style>
-
-body{
-
-background-attachment: fixed;
-background-position:center;
-background-repeat:no-repeat;
-
-}
-h1{
-border-radius:50px;
-box-shadow:0px 0px 10px 0px yellowgreen;
-
-}
-</style>
-</html>
-';
-	
-	
-}
-
-
-
-if(isset($_GET['Get']))
-{
-	
-
-	
-	echo"Login";
-	
-	
-	
-}
-
-
-
- 
- ?>
