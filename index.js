@@ -7,8 +7,8 @@ function sahand()
     
   }
   else{
-    console.log("Erore")
-    return 
+    console.log("Erore");
+    
   }
     
 }
