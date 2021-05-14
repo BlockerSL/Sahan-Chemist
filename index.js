@@ -1,7 +1,7 @@
 
 function sahand()
 {
-  var Tag = document.getElementById("yak").value;
+  var yak = document.getElementById("yak").value;
   if (yak == "1"){
     console.log("1");
     
