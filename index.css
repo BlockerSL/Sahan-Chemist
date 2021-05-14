@@ -1,0 +1,52 @@
+body {
+    font-size: 15pt;
+    margin: 0px;
+    padding:0px;
+    background: Black;
+    
+}
+input{
+  border-radius: 50px;
+  
+}
+.border{
+  border:2px solid snow;
+  border-radius: 10px;
+  margin:10px;
+  padding:10px;
+  width:150px;
+  
+}
+button{
+  background-color: Black;
+  color:white;
+  width:50px;
+  height: 50px;
+  border-radius: 75px;
+  
+}
+
+.Red button{
+  padding:10px;
+  margin: 3px;
+  
+  box-shadow: 0px 0px 5px 0px white;
+}
+.blue button{
+  padding: 10px;
+  margin: 3px;
+    box-shadow: 0px 0px 5px 0px white;
+
+}
+.green button{
+    padding: 10px;
+  margin: 3px;
+    box-shadow: 0px 0px 5px 0px white;
+
+}
+.T button{
+      padding: 10px;
+  margin: 3px;
+    box-shadow: 0px 0px 5px 0px white;
+float:left;
+}
