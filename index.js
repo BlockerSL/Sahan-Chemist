@@ -2,8 +2,9 @@ function sahand(){
 var x = document.getElementById("Tag").value;
 
 if (x == "Cl") {
-    document.getElementById("MyForm").action = "/sahand/index.html";
+   
 
+formObject.action =
 
    
 
@@ -11,7 +12,7 @@ if (x == "Cl") {
 else if (x == "F"){
 
 
-document.getElementById("MyForm").action = "/sahand1/index.html";
+formObject.action =
 
 }
 else {
