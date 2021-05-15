@@ -2,14 +2,16 @@ function sahand(){
 var x = document.getElementById("Tag").value;
 
 if (x == "Cl") {
-    
+    document.getElementById("MyForm").action = "/sahand/index.html";
 
-    window.location.href = 'sahand/index.html';
+
+   
 
 }
 else if (x == "F"){
 
-window.location.href = 'sahand1/index.html';
+
+document.getElementById("MyForm").action = "sahand1/index.html";
 
 }
 else {
