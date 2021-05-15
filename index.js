@@ -4,7 +4,7 @@ var x = document.getElementById("Tag").value;
 if (x == "Cl") {
    
 
-formObject.action =
+formObject.action ="https://sahand-chemist-i.netlify.app";
 
    
 
@@ -12,7 +12,7 @@ formObject.action =
 else if (x == "F"){
 
 
-formObject.action =
+formObject.action = "https://sahand-chemist-f.netlify.app";
 
 }
 else {
