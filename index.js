@@ -2,7 +2,7 @@ function sahand()
 {
   var num1 = document.getElementById("num1").value;
   var num2 = document.getElementById("num2").value;
- 
+  var anjam = document.write(num1+num2);
   
   if(num1 == "Cl"){
     document.write("Clored");
@@ -15,5 +15,5 @@ function sahand()
 
     
   }
-  anjam = document.write(num1+num2);
+  document.write(anjam);
 }
