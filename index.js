@@ -11,7 +11,7 @@ if (x == "Cl") {
 else if (x == "F"){
 
 
-document.getElementById("MyForm").action = "sahand1/index.html";
+document.getElementById("MyForm").action = "/sahand1/index.html";
 
 }
 else {
