@@ -4,13 +4,12 @@ var x = document.getElementById("Tag").value;
 if (x == "Cl") {
     
 
-  document.forms['h'].action='sahand/index.html';
+    window.location.href = 'sahand/index.html';
 
 }
 else if (x == "F"){
 
-document.forms['h'].action='sahand1/index.html';
-
+window.location.href = 'sahand1/index.html';
 
 }
 else {
